@@ -4,12 +4,13 @@ import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import si.uni_lj.fri.pbd.classproject3.Constants
+import si.uni_lj.fri.pbd.classproject3.database.dao.RecipeDao
 import si.uni_lj.fri.pbd.classproject3.database.entity.RecipeDetails
 
 @androidx.room.Database(entities = [RecipeDetails::class], version = 1, exportSchema = false)
 abstract class RecipeDatabase : RoomDatabase() {
 
-    // TODO: add a DAO reference
+    abstract fun recipeDao(): RecipeDao
 
     companion object {
         @Volatile

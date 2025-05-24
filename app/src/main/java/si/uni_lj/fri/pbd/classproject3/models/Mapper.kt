@@ -1,9 +1,13 @@
 package si.uni_lj.fri.pbd.classproject3.models
 
 import si.uni_lj.fri.pbd.classproject3.database.entity.RecipeDetails
+import si.uni_lj.fri.pbd.classproject3.models.dto.IngredientDTO
+import si.uni_lj.fri.pbd.classproject3.models.dto.RecipeDetailsDTO
+import si.uni_lj.fri.pbd.classproject3.models.dto.RecipeSummaryDTO
 
 object Mapper {
 
+    // API to UI
     fun mapRecipSummaryDtoToRecipeSummaryIm(rec: RecipeSummaryDTO): RecipeSummaryIM {
         return RecipeSummaryIM(
             strMeal = rec.name,
@@ -12,7 +16,7 @@ object Mapper {
         )
     }
 
-
+    // Database to UI
     fun mapRecipeDetailsToRecipeSummaryIm(rec: RecipeDetails): RecipeSummaryIM {
         return RecipeSummaryIM(
             strMeal = rec.strMeal!!,
@@ -20,8 +24,16 @@ object Mapper {
             idMeal = rec.idMeal!!
         )
     }
-    // TODO: Uncomment the code below
-/*
+
+    fun mapIngredientDtoToIngredientIm(dto: IngredientDTO): IngredientIM {
+        return IngredientIM(
+            strIngredient = dto.strIngredient ?: "",
+            strDescription = dto.strDescription ?: "",
+            idIngredient = dto.idIngredient ?: ""
+        )
+    }
+
+    // API to Database
     fun mapRecipeDetailsDtoToRecipeDetails(isFavorite: Boolean?, dto: RecipeDetailsDTO): RecipeDetails {
         return RecipeDetails(
             isFavorite = isFavorite,
@@ -76,6 +88,7 @@ object Mapper {
         )
     }
 
+    // UI to Database
     fun mapRecipeDetailsImToRecipeDetails(isFavorite: Boolean?, dto: RecipeDetailsIM): RecipeDetails {
         return RecipeDetails(
             isFavorite = isFavorite,
@@ -130,6 +143,7 @@ object Mapper {
         )
     }
 
+    // Api to UI
     fun mapRecipeDetailsDtoToRecipeDetailsIm(isFavorite: Boolean?, dto: RecipeDetailsDTO): RecipeDetailsIM {
         return RecipeDetailsIM(
             isFavorite = isFavorite,
@@ -184,6 +198,7 @@ object Mapper {
         )
     }
 
+    // Database to UI
     fun mapRecipeDetailsToRecipeDetailsIm(isFavorite: Boolean?, dto: RecipeDetails): RecipeDetailsIM {
         return RecipeDetailsIM(
             isFavorite = isFavorite,
@@ -236,5 +251,5 @@ object Mapper {
             strMeasure20 = dto.strMeasure20,
             strSource = dto.strSource
         )
-    }*/
+    }
 }
