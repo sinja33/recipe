@@ -27,7 +27,7 @@ class RecipeRepository(context: Context) {
 
     // Dropdown of ingredients
     // Made an IM so it is consistent with the later functions
-    suspend fun getAllIngredients(): List<IngredientIM>? {
+    suspend fun getAllIngredients(): List<IngredientIM> {
         return try {
             val response: IngredientsDTO? = restApi.getAllIngredients()
             val ingredientDTOs: List<IngredientDTO> = response?.ingredients ?: emptyList()
@@ -132,7 +132,7 @@ class RecipeRepository(context: Context) {
             false
         }
     }
-    
+
     suspend fun isRecipeFavorite(recipeId: String): Boolean {
         return try {
             recipeDao.isRecipeFavorite(recipeId)
