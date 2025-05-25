@@ -18,11 +18,11 @@ interface RecipeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRecipe(recipe: RecipeDetails)
 
-    // Will be used to update the recipe to fave (or unfave)
+    // Update to fav
     @Update
     suspend fun updateRecipe(recipe: RecipeDetails)
 
-    // Will be used for removing from faves
+    // Remove from faves (from database)
     @Delete
     suspend fun deleteRecipe(recipe: RecipeDetails)
 
@@ -31,5 +31,4 @@ interface RecipeDao {
 
     @Query("SELECT EXISTS(SELECT 1 FROM RecipeDetails WHERE idMeal = :idMeal AND isFavorite = 1)")
     suspend fun isRecipeFavorite(idMeal: String): Boolean
-    // If i will need something else!
 }

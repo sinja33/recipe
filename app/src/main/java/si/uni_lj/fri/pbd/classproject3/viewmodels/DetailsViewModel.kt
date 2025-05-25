@@ -95,7 +95,6 @@ class DetailsViewModel(application: Application) : AndroidViewModel(application)
         val recipe = _recipeDetails.value ?: return emptyList()
         val ingredients = mutableListOf<String>()
 
-        // Combine ingredients and measurements (up to 20)
         for (i in 1..20) {
             val ingredient = getIngredientByIndex(recipe, i)
             val measure = getMeasureByIndex(recipe, i)
@@ -111,10 +110,6 @@ class DetailsViewModel(application: Application) : AndroidViewModel(application)
         }
 
         return ingredients
-    }
-
-    fun clearError() {
-        _errorMessage.value = null
     }
 
     private fun getIngredientByIndex(recipe: RecipeDetailsIM, index: Int): String? {

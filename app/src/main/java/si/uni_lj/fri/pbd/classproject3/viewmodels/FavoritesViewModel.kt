@@ -50,28 +50,4 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
     fun refreshFavorites() {
         loadFavoriteRecipes()
     }
-
-    fun removeFromFavorites(recipeId: String) {
-        viewModelScope.launch {
-            try {
-                val success = recipeRepository.removeRecipeFromFavorites(recipeId)
-                if (success) {
-                    loadFavoriteRecipes()
-                } else {
-                    _errorMessage.value = "Failed to remove recipe from favorites"
-                }
-            } catch (e: Exception) {
-                _errorMessage.value = "Could not remove recipe due to error: ${e.message}"
-            }
-        }
-    }
-
-    fun clearError() {
-        _errorMessage.value = null
-    }
-
-    fun isEmpty(): Boolean {
-        return _favoriteRecipes.value?.isEmpty() ?: true
-    }
-
 }

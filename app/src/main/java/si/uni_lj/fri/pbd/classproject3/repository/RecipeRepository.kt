@@ -16,16 +16,13 @@ import si.uni_lj.fri.pbd.classproject3.models.RecipeSummaryIM
 
 class RecipeRepository(context: Context) {
 
-    // API
     private val restApi: RestAPI = ServiceGenerator.createService(RestAPI::class.java)
-
-    // Database and DAO
     private val database: RecipeDatabase = RecipeDatabase.getDatabase(context)
     private val recipeDao: RecipeDao = database.recipeDao()
 
     // API calls
+    // we will need: ingredients for dropdown, recipes by ingredient and recipe details
 
-    // Dropdown of ingredients
     // Made an IM so it is consistent with the later functions
     suspend fun getAllIngredients(): List<IngredientIM> {
         return try {
@@ -39,7 +36,6 @@ class RecipeRepository(context: Context) {
         }
     }
 
-    // Recipes by search
     suspend fun getRecipesByIngredient(ingredient: String): List<RecipeSummaryIM> {
         return try {
             val response = restApi.getRecipesByIngredient(ingredient)
@@ -52,7 +48,6 @@ class RecipeRepository(context: Context) {
         }
     }
 
-    // Full recipe when clicked
     suspend fun getRecipeDetailsFromAPI(recipeId: String): RecipeDetailsIM? {
         return try {
             val response = restApi.getRecipeById(recipeId)
@@ -68,9 +63,9 @@ class RecipeRepository(context: Context) {
     }
 
 
-    // Database functions
+    // Database functions - we will need for favorite recipes and to get details for a fav recipe
+    // and to put a recipe into faves, or out of faves
 
-    // Favorites for the fav screen
     suspend fun getAllFavoriteRecipes(): List<RecipeSummaryIM> {
         return try {
             val favoriteRecipes = recipeDao.getAllFavoriteRecipes()
@@ -82,7 +77,6 @@ class RecipeRepository(context: Context) {
         }
     }
 
-    // Click on a recipe in faves
     suspend fun getRecipeDetailsFromDatabase(recipeId: String): RecipeDetailsIM? {
         return try {
             val recipe = recipeDao.getRecipeById(recipeId)
@@ -95,7 +89,6 @@ class RecipeRepository(context: Context) {
         }
     }
 
-    // Click on fav button
     suspend fun addRecipeToFavorites(recipeId: String): Boolean {
         return try {
             val existingRecipe = recipeDao.getRecipeById(recipeId)
@@ -126,16 +119,9 @@ class RecipeRepository(context: Context) {
             recipe?.let {
                 it.isFavorite = false
                 recipeDao.updateRecipe(it)
+                recipeDao.deleteRecipe(recipe)
             }
             true
-        } catch (e: Exception) {
-            false
-        }
-    }
-
-    suspend fun isRecipeFavorite(recipeId: String): Boolean {
-        return try {
-            recipeDao.isRecipeFavorite(recipeId)
         } catch (e: Exception) {
             false
         }

@@ -42,9 +42,8 @@ class MainActivity : ComponentActivity() {
 fun AppContent() {
     var showSplash by remember { mutableStateOf(true) }
 
-    // Show splash screen for 3 seconds
     LaunchedEffect(Unit) {
-        delay(3000) // 3 seconds as per requirements
+        delay(3000)
         showSplash = false
     }
 
@@ -52,13 +51,5 @@ fun AppContent() {
         SplashScreen()
     } else {
         MainScreen()
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun AppContentPreview() {
-    ClassProject3Theme {
-        AppContent()
     }
 }

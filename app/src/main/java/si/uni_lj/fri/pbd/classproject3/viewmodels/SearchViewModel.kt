@@ -18,7 +18,6 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     val ingredientsLoading: LiveData<Boolean> = _ingredientsLoading
     private val _recipesLoading = MutableLiveData<Boolean>()
     val recipesLoading: LiveData<Boolean> = _recipesLoading
-
     private val _ingredients = MutableLiveData<List<IngredientIM>>()
     val ingredients: LiveData<List<IngredientIM>> = _ingredients
     private val _recipes = MutableLiveData<List<RecipeSummaryIM>>()
@@ -89,16 +88,6 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         _selectedIngredient.value?.let { ingredient ->
             searchRecipesByIngredient(ingredient)
         }
-    }
-
-    fun clearSearch() {
-        _recipes.value = emptyList()
-        _selectedIngredient.value = null
-        _errorMessage.value = null
-    }
-
-    fun clearError() {
-        _errorMessage.value = null
     }
 
 }
